@@ -1,0 +1,194 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<style>
+body{
+    background:#f5f7fb;
+    font-family:'Poppins',sans-serif;
+}
+
+.checkout-container{
+    max-width:900px;
+    margin:40px auto;
+}
+
+.checkout-card{
+    background:#fff;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    padding:35px;
+}
+
+.checkout-title{
+    text-align:center;
+    margin-bottom:30px;
+    font-weight:700;
+    color:#2563eb;
+}
+
+.order-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 0;
+    border-bottom:1px solid #ececec;
+}
+
+.order-item:last-child{
+    border-bottom:none;
+}
+
+.product-name{
+    font-size:18px;
+    font-weight:600;
+}
+
+.product-info{
+    color:#666;
+    font-size:15px;
+}
+
+.summary{
+    background:#f8f9fa;
+    border-radius:12px;
+    padding:20px;
+    margin-top:30px;
+}
+
+.summary h3{
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+.total{
+    font-size:28px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.btn-order{
+    width:100%;
+    margin-top:20px;
+    height:48px;
+    font-size:18px;
+    border-radius:10px;
+}
+
+.btn-shop{
+    width:100%;
+    margin-top:12px;
+    height:48px;
+    border-radius:10px;
+}
+
+.empty-card{
+    background:white;
+    padding:60px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+</style>
+
+<div class="checkout-container">
+
+{% if order %}
+
+<div class="checkout-card">
+
+<h2 class="checkout-title">
+💳 Checkout
+</h2>
+
+{% for item in order.items.all %}
+
+<div class="order-item">
+
+<div>
+
+<div class="product-name">
+{{ item.product.name }}
+</div>
+
+<div class="product-info">
+Quantity : {{ item.quantity }}
+</div>
+
+</div>
+
+<div>
+
+₹{{ item.product.price }}
+
+</div>
+
+</div>
+
+{% endfor %}
+
+<div class="summary">
+
+<h3>Order Summary</h3>
+
+<hr>
+
+<div class="d-flex justify-content-between">
+
+<strong>Total Amount</strong>
+
+<div class="total">
+
+₹{{ total }}
+
+</div>
+
+</div>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button class="btn btn-success btn-order">
+
+✅ Confirm Order
+
+</button>
+
+</form>
+
+<a href="{% url 'product_list' %}"
+class="btn btn-outline-primary btn-shop">
+
+🛍 Continue Shopping
+
+</a>
+
+</div>
+
+</div>
+
+{% else %}
+
+<div class="empty-card">
+
+<h2>Your Cart is Empty 🛒</h2>
+
+<p class="text-muted mt-3">
+Please add some products before checkout.
+</p>
+
+<a href="{% url 'product_list' %}"
+class="btn btn-primary mt-3">
+
+Go Shopping
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
