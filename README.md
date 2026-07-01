@@ -176,7 +176,7 @@ https://github.com/likhithamuddala/simple-ecommerce-store
 
 ## 📄 License
 
-This project follows the license of the original open-source project. Please refer to the original repository for complete license details.
+This project follows the license of the original open-source project. Please refer to the original repository for complete details.
 
 ---
 
